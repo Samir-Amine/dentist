@@ -478,22 +478,20 @@
 
   
   // ---- Build time slots (clinic hours 9:00 AM–6:00 PM, 30-min steps, lunch break 1–2 PM) ----
+  // ---- Build time slots (clinic hours 9:00–18:00, 30-min steps, lunch break 13:00–14:00) ----
   function buildTimeSlots(){
-    const startMin = 9 * 60;    // 9:00 AM
-    const endMin = 18 * 60;     // 6:00 PM
-    const lunchStart = 13 * 60; // 1:00 PM
-    const lunchEnd = 14 * 60;   // 2:00 PM
+    const startMin = 9 * 60;    // 9:00
+    const endMin = 18 * 60;     // 18:00
+    const lunchStart = 13 * 60; // 13:00
+    const lunchEnd = 14 * 60;   // 14:00
     for (let m = startMin; m <= endMin; m += 60){
       if (m >= lunchStart && m < lunchEnd) continue; // skip lunch break
       const h24 = Math.floor(m / 60);
       const min = m % 60;
       const value = String(h24).padStart(2,'0') + ':' + String(min).padStart(2,'0');
-      const hour12 = ((h24 + 11) % 12) + 1;
-      const ampm = h24 < 12 ? 'AM' : 'PM';
-      const label = hour12 + ':' + String(min).padStart(2,'0') + ' ' + ampm;
       const opt = document.createElement('option');
       opt.value = value;
-      opt.textContent = label;
+      opt.textContent = value;
       timeSelect.appendChild(opt);
     }
   }
