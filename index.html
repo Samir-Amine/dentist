@@ -483,7 +483,7 @@
     const endMin = 18 * 60;     // 6:00 PM
     const lunchStart = 13 * 60; // 1:00 PM
     const lunchEnd = 14 * 60;   // 2:00 PM
-    for (let m = startMin; m <= endMin; m += 30){
+    for (let m = startMin; m <= endMin; m += 60){
       if (m >= lunchStart && m < lunchEnd) continue; // skip lunch break
       const h24 = Math.floor(m / 60);
       const min = m % 60;
