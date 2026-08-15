@@ -476,11 +476,15 @@
   const dateInput = document.getElementById('preferred_date');
   const timeSelect = document.getElementById('preferred_time');
 
-  // ---- Build time slots (clinic hours 8:00 AM–7:00 PM, 30-min steps) ----
+  
+  // ---- Build time slots (clinic hours 9:00 AM–6:00 PM, 30-min steps, lunch break 1–2 PM) ----
   function buildTimeSlots(){
-    const startMin = 8 * 60;
-    const endMin = 19 * 60;
+    const startMin = 9 * 60;    // 9:00 AM
+    const endMin = 18 * 60;     // 6:00 PM
+    const lunchStart = 13 * 60; // 1:00 PM
+    const lunchEnd = 14 * 60;   // 2:00 PM
     for (let m = startMin; m <= endMin; m += 30){
+      if (m >= lunchStart && m < lunchEnd) continue; // skip lunch break
       const h24 = Math.floor(m / 60);
       const min = m % 60;
       const value = String(h24).padStart(2,'0') + ':' + String(min).padStart(2,'0');
