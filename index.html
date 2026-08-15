@@ -237,6 +237,46 @@
   }
   .whatsapp-note svg{ width: 14px; height: 14px; flex: none; }
 
+  .lang-switch{
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.lang-btn{
+  border: 1.5px solid var(--border-strong);
+  background: #FCFDFE;
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.lang-btn:hover{ border-color: var(--teal); color: var(--teal-dark); }
+.lang-btn.active{
+  background: var(--navy-dark);
+  border-color: var(--navy-dark);
+  color: #fff;
+}
+
+/* ---------- RTL (Arabic) ---------- */
+[dir="rtl"] select{
+  background-position: left 14px center;
+  padding-right: 14px;
+  padding-left: 40px;
+}
+[dir="rtl"] .field .optional-tag{
+  margin-left: 0;
+  margin-right: 4px;
+}
+[dir="rtl"] .whatsapp-note,
+[dir="rtl"] .confirm-icon{
+  direction: rtl;
+}
+
   /* ---------- Submit ---------- */
   .submit-btn{
     width: 100%;
@@ -365,97 +405,114 @@
     </svg>
   </div>
 
+  <div class="lang-switch" role="group" aria-label="Language">
+  <button type="button" class="lang-btn" data-lang="en">EN</button>
+  <button type="button" class="lang-btn" data-lang="fr">FR</button>
+  <button type="button" class="lang-btn" data-lang="ar">عربي</button>
+  </div>
+
   <main class="card" id="card">
 
     <div id="formView">
-      <h1>Book a Dental Appointment</h1>
-      <p class="subtitle">Fill in the form below to request an appointment. Your appointment is not confirmed until you receive a confirmation message.</p>
+      <h1 data-i18n="title">Book a Dental Appointment</h1>
+      <p class="subtitle" data-i18n="subtitle">Fill in the form below to request an appointment. Your appointment is not confirmed until you receive a confirmation message.</p>
 
       <form id="appointmentForm" novalidate>
 
         <div class="row two-col">
           <div class="field" data-field="first_name">
-            <label for="first_name">First name <span class="required-mark">*</span></label>
-            <input type="text" id="first_name" name="first_name" autocomplete="given-name" placeholder="e.g. Sara" required>
-            <p class="error-msg">Please enter your first name.</p>
+            <label for="first_name"><span data-i18n="label_first_name">First name</span> <span class="required-mark">*</span></label>
+            <input type="text" id="first_name" name="first_name" autocomplete="given-name" data-i18n-placeholder="ph_first_name" placeholder="e.g. Sara" required>
+            <p class="error-msg" data-i18n="err_first_name">Please enter your first name.</p>
           </div>
 
           <div class="field" data-field="last_name">
-            <label for="last_name">Last name <span class="required-mark">*</span></label>
-            <input type="text" id="last_name" name="last_name" autocomplete="family-name" placeholder="e.g. Benali" required>
-            <p class="error-msg">Please enter your last name.</p>
+            <label for="last_name"><span data-i18n="label_last_name">Last name</span> <span class="required-mark">*</span></label>
+            <input type="text" id="last_name" name="last_name" autocomplete="family-name" data-i18n-placeholder="ph_last_name" placeholder="e.g. Benali" required>
+            <p class="error-msg" data-i18n="err_last_name">Please enter your last name.</p>
           </div>
         </div>
 
         <div class="field" data-field="whatsapp_phone">
-          <label for="whatsapp_phone">WhatsApp phone number <span class="required-mark">*</span></label>
+          <label for="whatsapp_phone"><span data-i18n="label_phone">WhatsApp phone number</span> <span class="required-mark">*</span></label>
           <input type="tel" id="whatsapp_phone" name="whatsapp_phone" autocomplete="tel" inputmode="tel" placeholder="+212 6XX XXX XXX" required>
           <p class="whatsapp-note">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.01 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.06-1.33A9.94 9.94 0 0 0 12.01 22C17.53 22 22 17.52 22 12S17.53 2 12.01 2Zm5.2 14.24c-.22.62-1.28 1.21-1.76 1.26-.45.05-.9.24-3.02-.63-2.56-1.05-4.2-3.63-4.33-3.8-.13-.17-1.03-1.37-1.03-2.62 0-1.24.66-1.85.89-2.1.22-.24.5-.3.66-.3.17 0 .33 0 .48.01.15.01.36-.06.56.43.22.53.74 1.83.8 1.97.06.13.1.29.02.46-.08.17-.13.28-.25.43-.13.15-.27.34-.38.46-.13.13-.26.27-.11.53.15.27.68 1.12 1.46 1.82 1 .9 1.85 1.18 2.11 1.31.27.13.42.11.58-.07.16-.18.68-.79.86-1.06.18-.27.36-.22.6-.13.24.09 1.53.72 1.79.85.27.13.44.2.5.31.07.12.07.66-.15 1.28Z"/></svg>
-            Must be a number reachable on WhatsApp — this is how we'll confirm your appointment.
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">...</svg>
+          <span data-i18n="whatsapp_note">Must be a number reachable on WhatsApp...</span>
           </p>
-          <p class="error-msg">Please enter a valid WhatsApp number (with country code).</p>
+          <p class="error-msg" data-i18n="err_phone">Please enter a valid WhatsApp number (with country code).</p>    
         </div>
 
         <div class="field" data-field="email">
-          <label for="email">Email <span class="optional-tag">(optional)</span></label>
-          <input type="email" id="email" name="email" autocomplete="email" inputmode="email" placeholder="you@example.com">
-          <p class="error-msg">Please enter a valid email address.</p>
+          <label for="email"><span data-i18n="label_email">Email</span> <span class="optional-tag" data-i18n="optional_tag">(optional)</span></label>
+<input type="email" id="email" name="email" autocomplete="email" inputmode="email" data-i18n-placeholder="ph_email" placeholder="you@example.com">
+<p class="error-msg" data-i18n="err_email">Please enter a valid email address.</p>
         </div>
 
         <div class="field" data-field="appointment_type">
-          <label for="appointment_type">Appointment type <span class="required-mark">*</span></label>
+          
+          <label for="appointment_type"><span data-i18n="label_apt_type">Appointment type</span> <span class="required-mark">*</span></label>
           <select id="appointment_type" name="appointment_type" required>
-            <option value="" disabled selected>Select an appointment type</option>
-            <option value="Dental Consultation">Dental Consultation</option>
-            <option value="Dental Cleaning">Dental Cleaning</option>
-            <option value="Toothache / Emergency">Toothache / Emergency</option>
-            <option value="Check-up">Check-up</option>
-            <option value="Follow-up">Follow-up</option>
-            <option value="Other">Other</option>
+            <option value="" disabled selected data-i18n="opt_select_type">Select an appointment type</option>
+            <option value="Dental Consultation" data-i18n="opt_consultation">Dental Consultation</option>
+            <option value="Dental Cleaning" data-i18n="opt_cleaning">Dental Cleaning</option>
+            <option value="Toothache / Emergency" data-i18n="opt_emergency">Toothache / Emergency</option>
+            <option value="Check-up" data-i18n="opt_checkup">Check-up</option>
+            <option value="Follow-up" data-i18n="opt_followup">Follow-up</option>
+            <option value="Other" data-i18n="opt_other">Other</option>
           </select>
-          <p class="error-msg">Please select an appointment type.</p>
+          <p class="error-msg" data-i18n="err_apt_type">Please select an appointment type.</p>
+
         </div>
 
         <div class="row two-col">
+          
           <div class="field" data-field="preferred_date">
-            <label for="preferred_date">Preferred date <span class="required-mark">*</span></label>
-            <input type="date" id="preferred_date" name="preferred_date" required>
-            <p class="error-msg">Please choose a valid date (today or later).</p>
+            
+            <label for="preferred_date"><span data-i18n="label_date">Preferred date</span> <span class="required-mark">*</span></label>
+              <input type="date" id="preferred_date" name="preferred_date" required>
+            <p class="error-msg" data-i18n="err_date">Please choose a valid date (today or later).</p>
+            
           </div>
 
           <div class="field" data-field="preferred_time">
-            <label for="preferred_time">Preferred time <span class="required-mark">*</span></label>
+            
+            <label for="preferred_time"><span data-i18n="label_time">Preferred time</span> <span class="required-mark">*</span></label>
             <select id="preferred_time" name="preferred_time" required>
-              <option value="" disabled selected>Select a time</option>
+              <option value="" disabled selected data-i18n="opt_select_time">Select a time</option>
             </select>
-            <p class="error-msg">Please select a preferred time.</p>
+            <p class="error-msg" data-i18n="err_time">Please select a preferred time.</p>
+            
           </div>
+          
         </div>
 
         <div class="field" data-field="additional_notes">
-          <label for="additional_notes">Additional notes <span class="optional-tag">(optional)</span></label>
-          <textarea id="additional_notes" name="additional_notes" maxlength="600" placeholder="Tell us anything the dentist should know before the appointment."></textarea>
+          
+          <label for="additional_notes"><span data-i18n="label_notes">Additional notes</span> <span class="optional-tag" data-i18n="optional_tag">(optional)</span></label>
+          <textarea id="additional_notes" name="additional_notes" maxlength="600" data-i18n-placeholder="ph_notes" placeholder="Tell us anything the dentist should know before the appointment."></textarea>
+        
         </div>
 
-        <button type="submit" class="submit-btn" id="submitBtn">
-          <span class="spinner" aria-hidden="true"></span>
-          <span class="btn-label">Request Appointment</span>
-        </button>
+       <button type="submit" class="submit-btn" id="submitBtn">
+        <span class="spinner" aria-hidden="true"></span>
+        <span class="btn-label" data-i18n="submit_btn">Request Appointment</span>
+      </button>
 
-        <p class="form-error" id="formError" role="alert">Something went wrong sending your request. Please check your connection and try again.</p>
+    <p class="form-error" id="formError" role="alert" data-i18n="form_error">Something went wrong sending your request. Please check your connection and try again.</p>
+    <p class="privacy-note" data-i18n="privacy_note">No account needed. Your details are only used to schedule and confirm this appointment.</p>
 
-        <p class="privacy-note">No account needed. Your details are only used to schedule and confirm this appointment.</p>
       </form>
     </div>
 
-    <div class="confirm" id="confirmView">
-      <div class="confirm-icon">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.5L9.5 18L20 6"/></svg>
-      </div>
-      <h2>Request received</h2>
-      <p>Thank you! Your appointment request has been received. We will contact you on WhatsApp to confirm your appointment.</p>
+     <div class="confirm" id="confirmView">
+      <div class="confirm-icon">...</div>
+        <h2 data-i18n="confirm_title">Request received</h2>
+        <p data-i18n="confirm_text">Thank you! Your appointment request has been received. We will contact you on WhatsApp to confirm your appointment.</p>
     </div>
+     
+      
+    
 
   </main>
 </div>
@@ -475,6 +532,105 @@
   const confirmView = document.getElementById('confirmView');
   const dateInput = document.getElementById('preferred_date');
   const timeSelect = document.getElementById('preferred_time');
+
+  const translations = {
+  en: {
+    dir: 'ltr',
+    title: 'Book a Dental Appointment',
+    subtitle: 'Fill in the form below to request an appointment. Your appointment is not confirmed until you receive a confirmation message.',
+    label_first_name: 'First name', ph_first_name: 'e.g. Sara', err_first_name: 'Please enter your first name.',
+    label_last_name: 'Last name', ph_last_name: 'e.g. Benali', err_last_name: 'Please enter your last name.',
+    label_phone: 'WhatsApp phone number', err_phone: 'Please enter a valid WhatsApp number (with country code).',
+    whatsapp_note: "Must be a number reachable on WhatsApp — this is how we'll confirm your appointment.",
+    label_email: 'Email', optional_tag: '(optional)', ph_email: 'you@example.com', err_email: 'Please enter a valid email address.',
+    label_apt_type: 'Appointment type', err_apt_type: 'Please select an appointment type.',
+    opt_select_type: 'Select an appointment type',
+    opt_consultation: 'Dental Consultation', opt_cleaning: 'Dental Cleaning', opt_emergency: 'Toothache / Emergency',
+    opt_checkup: 'Check-up', opt_followup: 'Follow-up', opt_other: 'Other',
+    label_date: 'Preferred date', err_date: 'Please choose a valid date (today or later).',
+    label_time: 'Preferred time', err_time: 'Please select a preferred time.', opt_select_time: 'Select a time',
+    label_notes: 'Additional notes', ph_notes: 'Tell us anything the dentist should know before the appointment.',
+    submit_btn: 'Request Appointment',
+    form_error: 'Something went wrong sending your request. Please check your connection and try again.',
+    privacy_note: 'No account needed. Your details are only used to schedule and confirm this appointment.',
+    confirm_title: 'Request received',
+    confirm_text: 'Thank you! Your appointment request has been received. We will contact you on WhatsApp to confirm your appointment.'
+  },
+  fr: {
+    dir: 'ltr',
+    title: 'Prendre un rendez-vous dentaire',
+    subtitle: "Remplissez le formulaire ci-dessous pour demander un rendez-vous. Votre rendez-vous n'est confirmé qu'après réception d'un message de confirmation.",
+    label_first_name: 'Prénom', ph_first_name: 'ex. Sara', err_first_name: 'Veuillez entrer votre prénom.',
+    label_last_name: 'Nom', ph_last_name: 'ex. Benali', err_last_name: 'Veuillez entrer votre nom.',
+    label_phone: 'Numéro WhatsApp', err_phone: "Veuillez entrer un numéro WhatsApp valide (avec l'indicatif du pays).",
+    whatsapp_note: "Le numéro doit être joignable sur WhatsApp — c'est ainsi que nous confirmerons votre rendez-vous.",
+    label_email: 'E-mail', optional_tag: '(optionnel)', ph_email: 'vous@exemple.com', err_email: 'Veuillez entrer une adresse e-mail valide.',
+    label_apt_type: 'Type de rendez-vous', err_apt_type: 'Veuillez sélectionner un type de rendez-vous.',
+    opt_select_type: 'Sélectionnez un type de rendez-vous',
+    opt_consultation: 'Consultation dentaire', opt_cleaning: 'Détartrage / Nettoyage', opt_emergency: 'Mal de dents / Urgence',
+    opt_checkup: 'Contrôle', opt_followup: 'Suivi', opt_other: 'Autre',
+    label_date: 'Date souhaitée', err_date: 'Veuillez choisir une date valide (aujourd\'hui ou plus tard).',
+    label_time: 'Heure souhaitée', err_time: 'Veuillez sélectionner une heure souhaitée.', opt_select_time: 'Sélectionnez une heure',
+    label_notes: 'Remarques supplémentaires', ph_notes: 'Indiquez toute information utile pour le dentiste avant le rendez-vous.',
+    submit_btn: 'Demander un rendez-vous',
+    form_error: 'Un problème est survenu lors de l\'envoi de votre demande. Veuillez vérifier votre connexion et réessayer.',
+    privacy_note: 'Aucun compte requis. Vos informations sont utilisées uniquement pour planifier et confirmer ce rendez-vous.',
+    confirm_title: 'Demande reçue',
+    confirm_text: 'Merci ! Votre demande de rendez-vous a bien été reçue. Nous vous contacterons sur WhatsApp pour confirmer votre rendez-vous.'
+  },
+  ar: {
+    dir: 'rtl',
+    title: 'حجز موعد لدى طبيب الأسنان',
+    subtitle: 'املأ الاستمارة أدناه لطلب موعد. لن يتم تأكيد موعدك إلا بعد استلام رسالة تأكيد.',
+    label_first_name: 'الاسم الشخصي', ph_first_name: 'مثال: سارة', err_first_name: 'يرجى إدخال اسمك الشخصي.',
+    label_last_name: 'الاسم العائلي', ph_last_name: 'مثال: بنعلي', err_last_name: 'يرجى إدخال اسمك العائلي.',
+    label_phone: 'رقم الواتساب', err_phone: 'يرجى إدخال رقم واتساب صحيح (مع رمز البلد).',
+    whatsapp_note: 'يجب أن يكون الرقم متاحًا على واتساب — هكذا سنقوم بتأكيد موعدك.',
+    label_email: 'البريد الإلكتروني', optional_tag: '(اختياري)', ph_email: 'you@example.com', err_email: 'يرجى إدخال بريد إلكتروني صحيح.',
+    label_apt_type: 'نوع الموعد', err_apt_type: 'يرجى اختيار نوع الموعد.',
+    opt_select_type: 'اختر نوع الموعد',
+    opt_consultation: 'استشارة طب الأسنان', opt_cleaning: 'تنظيف الأسنان', opt_emergency: 'ألم الأسنان / حالة طارئة',
+    opt_checkup: 'فحص دوري', opt_followup: 'متابعة', opt_other: 'أخرى',
+    label_date: 'التاريخ المفضل', err_date: 'يرجى اختيار تاريخ صحيح (اليوم أو بعده).',
+    label_time: 'الوقت المفضل', err_time: 'يرجى اختيار الوقت المفضل.', opt_select_time: 'اختر الوقت',
+    label_notes: 'ملاحظات إضافية', ph_notes: 'أخبرنا بأي معلومة يحتاجها الطبيب قبل الموعد.',
+    submit_btn: 'طلب موعد',
+    form_error: 'حدث خطأ أثناء إرسال طلبك. يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى.',
+    privacy_note: 'لا حاجة لإنشاء حساب. تُستخدم بياناتك فقط لتحديد وتأكيد هذا الموعد.',
+    confirm_title: 'تم استلام الطلب',
+    confirm_text: 'شكرًا لك! تم استلام طلب حجز موعدك. سنتواصل معك عبر واتساب لتأكيد موعدك.'
+  }
+};
+
+function applyLanguage(lang){
+  const t = translations[lang] || translations.en;
+  document.documentElement.setAttribute('lang', lang);
+  document.documentElement.setAttribute('dir', t.dir);
+
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el){
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (t[key] !== undefined) el.setAttribute('placeholder', t[key]);
+  });
+  document.querySelectorAll('.lang-btn').forEach(function(btn){
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+
+  localStorage.setItem('preferredLang', lang);
+}
+
+document.querySelectorAll('.lang-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){ applyLanguage(btn.dataset.lang); });
+});
+
+// Default language: saved choice, else browser language, else English
+const savedLang = localStorage.getItem('preferredLang');
+const browserLang = (navigator.language || 'en').slice(0,2);
+const initialLang = savedLang || (translations[browserLang] ? browserLang : 'en');
+applyLanguage(initialLang);
 
   
   // ---- Build time slots (clinic hours 9:00 AM–6:00 PM, 30-min steps, lunch break 1–2 PM) ----
