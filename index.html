@@ -369,28 +369,37 @@
     Convert FormData to normal object
     */
 
-    const data = {
+   const preferredDate =
+  formData.get("preferred_date");
 
-      first_name:
-        formData.get("first_name"),
+const preferredTime =
+  formData.get("preferred_time");
 
-      last_name:
-        formData.get("last_name"),
+const data = {
 
-      whatsapp_phone:
-        formData.get("whatsapp_phone"),
+  first_name:
+    formData.get("first_name"),
 
-      email:
-        formData.get("email"),
+  last_name:
+    formData.get("last_name"),
 
-      appointment_type:
-        formData.get("appointment_type"),
+  whatsapp_phone:
+    formData.get("whatsapp_phone"),
 
-      preferred_date:
-        formData.get("preferred_date"),
+  email:
+    formData.get("email"),
 
-      preferred_time:
-        formData.get("preferred_time"),
+  appointment_type:
+    formData.get("appointment_type"),
+
+  preferred_date:
+    preferredDate,
+
+  preferred_time:
+    preferredTime,
+
+  preferred_datetime:
+    preferredDate + " " + preferredTime,
 
       additional_notes:
         formData.get("additional_notes"),
