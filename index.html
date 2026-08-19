@@ -1,490 +1,473 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prise de Rendez-vous - Cabinet Dentaire</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dentist Appointment Booking</title>
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-        .container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 600px;
-            width: 100%;
-            overflow: hidden;
-        }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #222;
+    }
 
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px 30px;
-            text-align: center;
-        }
+    .container {
+      max-width: 650px;
+      margin: 50px auto;
+      padding: 30px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
 
-        .header h1 {
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
+    h1 {
+      margin-bottom: 10px;
+      text-align: center;
+    }
 
-        .header p {
-            font-size: 16px;
-            opacity: 0.9;
-        }
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 30px;
+    }
 
-        .form-container {
-            padding: 40px 30px;
-        }
+    .form-group {
+      margin-bottom: 18px;
+    }
 
-        .form-group {
-            margin-bottom: 25px;
-        }
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: 600;
+    }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #333;
-            font-size: 14px;
-        }
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #d5dbe3;
+      border-radius: 8px;
+      font-size: 15px;
+    }
 
-        label .required {
-            color: #e74c3c;
-        }
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
 
-        input,
-        textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 15px;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #2563eb;
+    }
 
-        input:focus,
-        textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      background: #2563eb;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-        input::placeholder,
-        textarea::placeholder {
-            color: #999;
-        }
+    button:hover {
+      background: #1d4ed8;
+    }
 
-        small {
-            display: block;
-            margin-top: 5px;
-            color: #666;
-            font-size: 13px;
-        }
+    button:disabled {
+      background: #999;
+      cursor: not-allowed;
+    }
 
-        .info-box {
-            background: #f0f4ff;
-            border-left: 4px solid #667eea;
-            padding: 12px 15px;
-            margin-bottom: 25px;
-            border-radius: 5px;
-        }
+    .message {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+    }
 
-        .info-box ul {
-            margin-left: 20px;
-            margin-top: 5px;
-        }
+    .success {
+      background: #dcfce7;
+      color: #166534;
+    }
 
-        .info-box li {
-            color: #555;
-            font-size: 14px;
-            margin-bottom: 3px;
-        }
+    .error {
+      background: #fee2e2;
+      color: #991b1b;
+    }
 
-        button {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-        }
-
-        button:active {
-            transform: translateY(0);
-        }
-
-        button:disabled {
-            background: #95a5a6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .message {
-            display: none;
-            padding: 15px 20px;
-            border-radius: 8px;
-            margin-top: 20px;
-            font-size: 15px;
-            text-align: center;
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .success-message {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .error-message {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #667eea;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            animation: spin 1s linear infinite;
-            display: inline-block;
-            margin-right: 10px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .footer {
-            background: #f8f9fa;
-            padding: 20px;
-            text-align: center;
-            color: #666;
-            font-size: 13px;
-        }
-
-        @media (max-width: 640px) {
-            .header h1 {
-                font-size: 24px;
-            }
-
-            .form-container {
-                padding: 30px 20px;
-            }
-        }
-    </style>
+    .working-hours {
+      margin-top: 5px;
+      font-size: 13px;
+      color: #777;
+    }
+  </style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🦷 Cabinet Dentaire</h1>
-            <p>Prise de Rendez-vous en Ligne</p>
-        </div>
 
-        <div class="form-container">
-            <div class="info-box">
-                <strong>📋 Informations importantes :</strong>
-                <ul>
-                    <li>Durée du rendez-vous : <strong>60 minutes</strong></li>
-                    <li>Horaires : <strong>Lundi au Vendredi, 09h00 - 18h00</strong></li>
-                    <li>Pause déjeuner : <strong>13h00 - 14h00</strong> (fermé)</li>
-                    <li>Créneaux disponibles : <strong>09h, 10h, 11h, 12h, 14h, 15h, 16h, 17h</strong></li>
-                </ul>
-            </div>
+<div class="container">
 
-            <form id="appointmentForm">
-                <div class="form-group">
-                    <label for="nom">
-                        Nom de famille <span class="required">*</span>
-                    </label>
-                    <input 
-                        type="text" 
-                        id="nom" 
-                        name="nom" 
-                        placeholder="Dupont"
-                        required
-                        minlength="2"
-                    >
-                </div>
+  <h1>Book an Appointment</h1>
 
-                <div class="form-group">
-                    <label for="prenom">
-                        Prénom <span class="required">*</span>
-                    </label>
-                    <input 
-                        type="text" 
-                        id="prenom" 
-                        name="prenom" 
-                        placeholder="Marie"
-                        required
-                        minlength="2"
-                    >
-                </div>
+  <p class="subtitle">
+    Please fill in the form below to request your dental appointment.
+  </p>
 
-                <div class="form-group">
-                    <label for="telephone">
-                        Numéro de téléphone (WhatsApp) <span class="required">*</span>
-                    </label>
-                    <input 
-                        type="tel" 
-                        id="telephone" 
-                        name="telephone" 
-                        placeholder="+212 6 12 34 56 78"
-                        required
-                        pattern="^\+[0-9]{1,3}[0-9\s]{8,15}$"
-                    >
-                    <small>
-                        Incluez l'indicatif du pays (ex: +212 pour le Maroc, +33 pour la France)
-                    </small>
-                </div>
+  <form id="appointmentForm">
 
-                <div class="form-group">
-                    <label for="email">
-                        Adresse e-mail <span class="required">*</span>
-                    </label>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        name="email" 
-                        placeholder="marie.dupont@email.com"
-                        required
-                    >
-                </div>
-
-                <div class="form-group">
-                    <label for="datetime">
-                        Date et heure de rendez-vous <span class="required">*</span>
-                    </label>
-                    <input 
-                        type="datetime-local" 
-                        id="datetime" 
-                        name="datetime"
-                        step="3600"
-                        required
-                    >
-                    <small>
-                        Sélectionnez une date et heure. Créneaux toutes les heures.
-                    </small>
-                </div>
-
-                <div class="form-group">
-                    <label for="motif">
-                        Motif de consultation (optionnel)
-                    </label>
-                    <textarea 
-                        id="motif" 
-                        name="motif" 
-                        rows="3"
-                        placeholder="Ex: Contrôle annuel, douleur dentaire, nettoyage, urgence..."
-                        maxlength="500"
-                    ></textarea>
-                    <small id="charCount">0 / 500 caractères</small>
-                </div>
-
-                <button type="submit" id="submitBtn">
-                    Envoyer ma demande
-                </button>
-            </form>
-
-            <div class="success-message message" id="successMsg">
-                <strong>✅ Demande envoyée avec succès !</strong><br>
-                Vous allez recevoir une confirmation par WhatsApp dans quelques instants.
-            </div>
-
-            <div class="error-message message" id="errorMsg">
-                <strong>❌ Une erreur est survenue.</strong><br>
-                Veuillez réessayer ou contactez-nous directement.
-            </div>
-        </div>
-
-        <div class="footer">
-            © 2024 Cabinet Dentaire - Tous droits réservés
-        </div>
+    <!-- First Name -->
+    <div class="form-group">
+      <label for="first_name">First Name *</label>
+      <input
+        type="text"
+        id="first_name"
+        name="first_name"
+        required
+      >
     </div>
 
-    <script>
-        // ===== CONFIGURATION =====
-        const WEBHOOK_URL = 'https://hook.eu1.make.com/2wpf0xda0vb6ery5ju6oc2rlvfrrp5n8'; // Replace with your Make.com webhook URL
+    <!-- Last Name -->
+    <div class="form-group">
+      <label for="last_name">Last Name *</label>
+      <input
+        type="text"
+        id="last_name"
+        name="last_name"
+        required
+      >
+    </div>
 
-        // ===== SET MINIMUM DATE TO NOW =====
-        const now = new Date();
-        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-        document.getElementById('datetime').min = now.toISOString().slice(0, 16);
+    <!-- WhatsApp -->
+    <div class="form-group">
+      <label for="whatsapp_phone">WhatsApp Phone *</label>
+      <input
+        type="tel"
+        id="whatsapp_phone"
+        name="whatsapp_phone"
+        placeholder="+212600000000"
+        required
+      >
+    </div>
 
-        // ===== CHARACTER COUNTER FOR MOTIF =====
-        document.getElementById('motif').addEventListener('input', function() {
-            const count = this.value.length;
-            document.getElementById('charCount').textContent = `${count} / 500 caractères`;
-        });
+    <!-- Email -->
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="example@email.com"
+      >
+    </div>
 
-        // ===== PHONE NUMBER FORMATTING =====
-        document.getElementById('telephone').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/[^\d+\s]/g, '');
-            e.target.value = value;
-        });
+    <!-- Appointment Type -->
+    <div class="form-group">
+      <label for="appointment_type">Appointment Type *</label>
 
-        // ===== DATETIME VALIDATION (Business Hours + Lunch Break) =====
-        document.getElementById('datetime').addEventListener('change', function(e) {
-            const value = e.target.value;
-            if (!value) return;
+      <select
+        id="appointment_type"
+        name="appointment_type"
+        required
+      >
+        <option value="">Select appointment type</option>
+        <option value="Dental Check-up">Dental Check-up</option>
+        <option value="Cleaning">Dental Cleaning</option>
+        <option value="Tooth Pain">Tooth Pain</option>
+        <option value="Consultation">Consultation</option>
+        <option value="Tooth Extraction">Tooth Extraction</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
 
-            const selected = new Date(value);
-            const day = selected.getDay(); // 0=Sunday, 1=Monday, ..., 6=Saturday
-            const hour = selected.getHours();
-            const minute = selected.getMinutes();
+    <!-- Date -->
+    <div class="form-group">
 
-            // Check 1: Monday to Friday only
-            if (day === 0 || day === 6) {
-                alert('❌ Le cabinet est ouvert uniquement du Lundi au Vendredi.');
-                e.target.value = '';
-                return;
-            }
+      <label for="preferred_date">
+        Preferred Date *
+      </label>
 
-            // Check 2: Minutes must be :00 (step=3600 should handle this, but double-check)
-            if (minute !== 0) {
-                alert('❌ Les rendez-vous doivent être sur une heure entière (09:00, 10:00, etc.).');
-                e.target.value = '';
-                return;
-            }
+      <input
+        type="date"
+        id="preferred_date"
+        name="preferred_date"
+        required
+      >
 
-            // Check 3: Working hours 9-17 (last appointment starts at 17:00, ends at 18:00)
-            if (hour < 9 || hour > 17) {
-                alert('❌ Les rendez-vous sont disponibles de 09h00 à 17h00 (fin à 18h00).');
-                e.target.value = '';
-                return;
-            }
+    </div>
 
-            // Check 4: Lunch break - NO appointments at 13:00
-            if (hour === 13) {
-                alert('❌ Le créneau de 13h00 est fermé pour la pause déjeuner.\n\nVeuillez choisir 12h00, 14h00 ou plus tard.');
-                e.target.value = '';
-                return;
-            }
+    <!-- Time -->
+    <div class="form-group">
 
-            // Check 5: Not in the past
-            if (selected < new Date()) {
-                alert('❌ Vous ne pouvez pas sélectionner une date dans le passé.');
-                e.target.value = '';
-                return;
-            }
-        });
+      <label for="preferred_time">
+        Preferred Time *
+      </label>
 
-        // ===== FORM SUBMISSION =====
-        document.getElementById('appointmentForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
+      <select
+        id="preferred_time"
+        name="preferred_time"
+        required
+      >
 
-            const submitBtn = document.getElementById('submitBtn');
-            const successMsg = document.getElementById('successMsg');
-            const errorMsg = document.getElementById('errorMsg');
+        <option value="">
+          Select a time
+        </option>
 
-            // Hide previous messages
-            successMsg.style.display = 'none';
-            errorMsg.style.display = 'none';
+        <option value="09:00">09:00</option>
+        <option value="10:00">10:00</option>
+        <option value="11:00">11:00</option>
+        <option value="12:00">12:00</option>
 
-            // Disable button and show loading state
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="spinner"></span>Envoi en cours...';
+        <option value="14:00">14:00</option>
+        <option value="15:00">15:00</option>
+        <option value="16:00">16:00</option>
+        <option value="17:00">17:00</option>
 
-            // Collect form data
-            const formData = {
-                nom: document.getElementById('nom').value.trim(),
-                prenom: document.getElementById('prenom').value.trim(),
-                telephone: document.getElementById('telephone').value.trim(),
-                email: document.getElementById('email').value.trim(),
-                datetime: document.getElementById('datetime').value,
-                motif: document.getElementById('motif').value.trim() || 'Non spécifié',
-                submittedAt: new Date().toISOString()
-            };
+      </select>
 
-            // Final validation before sending
-            const selectedDate = new Date(formData.datetime);
-            const day = selectedDate.getDay();
-            const hour = selectedDate.getHours();
+      <div class="working-hours">
+        Working hours: 09:00–18:00 | Lunch break: 13:00–14:00 |
+        Appointment duration: 60 minutes
+      </div>
 
-            if (day === 0 || day === 6 || hour < 9 || hour > 17 || hour === 13) {
-                errorMsg.textContent = '❌ Créneau invalide. Veuillez vérifier la date et l\'heure.';
-                errorMsg.style.display = 'block';
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Envoyer ma demande';
-                return;
-            }
+    </div>
 
-            try {
-                // Send to Make.com webhook
-                const response = await fetch(WEBHOOK_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData)
-                });
+    <!-- Additional Notes -->
+    <div class="form-group">
 
-                if (response.ok) {
-                    // Success
-                    successMsg.style.display = 'block';
-                    this.reset();
-                    
-                    // Scroll to success message
-                    successMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                } else {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-            } catch (error) {
-                // Error
-                console.error('Submission error:', error);
-                errorMsg.style.display = 'block';
-                errorMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            } finally {
-                // Re-enable button
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Envoyer ma demande';
-            }
-        });
+      <label for="additional_notes">
+        Additional Notes
+      </label>
 
-        // ===== PREVENT FORM RESUBMISSION ON PAGE REFRESH =====
-        if (window.history.replaceState) {
-            window.history.replaceState(null, null, window.location.href);
-        }
-    </script>
+      <textarea
+        id="additional_notes"
+        name="additional_notes"
+        placeholder="Anything you would like us to know?"
+      ></textarea>
+
+    </div>
+
+    <button
+      type="submit"
+      id="submitButton"
+    >
+      Request Appointment
+    </button>
+
+  </form>
+
+  <div
+    id="successMessage"
+    class="message success"
+  >
+    Your appointment request has been submitted successfully.
+    We will contact you on WhatsApp to confirm your appointment.
+  </div>
+
+  <div
+    id="errorMessage"
+    class="message error"
+  >
+    Something went wrong. Please try again.
+  </div>
+
+</div>
+
+
+<script>
+
+  /*
+  ============================================================
+  MAKE WEBHOOK
+  ============================================================
+
+  Replace the URL below with your Make Custom Webhook URL.
+
+  Example:
+
+  const MAKE_WEBHOOK_URL =
+  "https://hook.eu1.make.com/xxxxxxxxxxxxxxxx";
+
+  ============================================================
+  */
+
+  const MAKE_WEBHOOK_URL =
+    "https://hook.eu1.make.com/2wpf0xda0vb6ery5ju6oc2rlvfrrp5n8";
+
+
+  /*
+  ============================================================
+  SET MINIMUM DATE
+  ============================================================
+  */
+
+  const dateInput =
+    document.getElementById("preferred_date");
+
+  const today =
+    new Date().toISOString().split("T")[0];
+
+  dateInput.min = today;
+
+
+  /*
+  ============================================================
+  FORM SUBMISSION
+  ============================================================
+  */
+
+  const form =
+    document.getElementById("appointmentForm");
+
+  const submitButton =
+    document.getElementById("submitButton");
+
+  const successMessage =
+    document.getElementById("successMessage");
+
+  const errorMessage =
+    document.getElementById("errorMessage");
+
+
+  form.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    submitButton.disabled = true;
+
+    submitButton.textContent =
+      "Sending...";
+
+    successMessage.style.display =
+      "none";
+
+    errorMessage.style.display =
+      "none";
+
+
+    /*
+    Collect form data
+    */
+
+    const formData =
+      new FormData(form);
+
+
+    /*
+    Convert FormData to normal object
+    */
+
+    const data = {
+
+      first_name:
+        formData.get("first_name"),
+
+      last_name:
+        formData.get("last_name"),
+
+      whatsapp_phone:
+        formData.get("whatsapp_phone"),
+
+      email:
+        formData.get("email"),
+
+      appointment_type:
+        formData.get("appointment_type"),
+
+      preferred_date:
+        formData.get("preferred_date"),
+
+      preferred_time:
+        formData.get("preferred_time"),
+
+      additional_notes:
+        formData.get("additional_notes"),
+
+      submitted_at:
+        new Date().toISOString(),
+
+      source:
+        "website"
+
+    };
+
+
+    /*
+    Send data to Make
+    */
+
+    try {
+
+      const response =
+        await fetch(
+          MAKE_WEBHOOK_URL,
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body:
+              JSON.stringify(data)
+          }
+        );
+
+
+      if (!response.ok) {
+        throw new Error(
+          "Webhook request failed"
+        );
+      }
+
+
+      /*
+      Success
+      */
+
+      form.reset();
+
+      successMessage.style.display =
+        "block";
+
+      submitButton.disabled =
+        false;
+
+      submitButton.textContent =
+        "Request Appointment";
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      errorMessage.style.display =
+        "block";
+
+      submitButton.disabled =
+        false;
+
+      submitButton.textContent =
+        "Request Appointment";
+
+    }
+
+  });
+
+</script>
+
 </body>
 </html>
